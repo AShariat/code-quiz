@@ -41,27 +41,40 @@ var question6 = {
   answer4: "E6"
 };
 var questions = [question1, question2, question3, question4, question5, question6];
-var quiz = function() {
-  var question = document.getElementById('questions');
-  for (var i = 0; i < questions.length; i++) {
-    var questionEl = document.createElement('p');
-    questionEl.textContent = (questions[i].question);
-    question.appendChild(questionEl);
-    var answer1El = document.createElement('button');
-    answer1El.textContent = (questions[i].answer1);
-    question.appendChild(answer1El);
-    var answer2El = document.createElement('button');
-    answer2El.textContent = (questions[i].answer2);
-    question.appendChild(answer2El);
-    var answer3El = document.createElement('button');
-    answer3El.textContent = (questions[i].answer3);
-    question.appendChild(answer3El);
-    var answer4El = document.createElement('button');
-    answer4El.textContent = (questions[i].answer4);
-    question.appendChild(answer4El);
-  }
-};
 var start = document.getElementById('start');
+var question = document.getElementById('questions');
+var quiz = function() {
+  var i = 0;
+  selectedQuestion = function() {
+    console.log("Question " + i);
+  }
+  select = function() {
+    for (i; i < questions.length; i) {
+      var newDivEl = document.createElement('div');
+      newDivEl.id = ('question' + i);
+      newDivEl.className = ('questions');
+      question.appendChild(newDivEl);
+      var questionEl = document.createElement('p');
+      questionEl.textContent = (questions[i].question);
+      newDivEl.appendChild(questionEl);
+      var answer1El = document.createElement('button');
+      answer1El.textContent = (questions[i].answer1);
+      newDivEl.appendChild(answer1El);
+      var answer2El = document.createElement('button');
+      answer2El.textContent = (questions[i].answer2);
+      newDivEl.appendChild(answer2El);
+      var answer3El = document.createElement('button');
+      answer3El.textContent = (questions[i].answer3);
+      newDivEl.appendChild(answer3El);
+      var answer4El = document.createElement('button');
+      answer4El.textContent = (questions[i].answer4);
+      newDivEl.appendChild(answer4El);
+      i++;
+      selectedQuestion();
+    }
+  }
+  select();
+};
 var startBtn = document.querySelector('#start-btn');
 startBtn.addEventListener('click', function(){
   quiz();
