@@ -87,6 +87,18 @@ button:active {
 .questions button {
   text-align: start;
 }
-span {
+.gameOver {
+  margin-top: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.gameOver span {
+  padding-bottom: 50px;
   font-size: 5rem;
+}
+.gameOver button {
+  width: auto;
+  padding: auto;
 }

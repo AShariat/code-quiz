@@ -90,14 +90,27 @@ var quiz = function() {
         }
       });
     } else {
-      window.alert("No More Question!");
+      stopTimer();
+      timeIsUp();
     }
   }
   questionBuilder(); 
 };
+function timeIsUp() {
+  const timeDisplay = document.getElementById('time');
+  var gameOver = document.querySelector('#questions');
+  gameOver.id = 'gameOver';
+  gameOver.className = 'gameOver';
+  gameOver.innerHTML = '<span>No More Questions!</span>';
+  var scorePage = document.createElement('button');
+  scorePage.textContent = "Let's Record Your Score"
+  gameOver.appendChild(scorePage);
+}
 function stopTimer() {
   clearInterval(intervalID);
-  document.querySelector('#questions').innerHTML = '<span>Time is up!</span>';
+  var gameOver = document.querySelector('#questions');
+  gameOver.className = 'gameOver';
+  gameOver.innerHTML = '<span>Time is up!</span>';
 };
 function startTimer() {
   const timeDisplay = document.getElementById('time');
