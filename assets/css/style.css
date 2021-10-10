@@ -27,7 +27,7 @@ header {
   justify-content: space-between;
   font-size: 0.75rem;
   padding: 10px 30px;
-  color: rgb(5, 5, 150);
+  color: blue;
 }
 main {
   display: flex;
@@ -96,6 +96,7 @@ button:active {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 50px;
 }
 .gameOver span {
   padding-bottom: 50px;
@@ -110,4 +111,13 @@ button:active {
 }
 .hidden {
   display: none;
+}
+#showfeedback {
+  display: flex;
+  width: 50%;
+}
+#showfeedback span {
+  font-size: 50px;
+  border-top: 3px solid;
+  width: 100%;
 }
