@@ -90,21 +90,23 @@ var quiz = function() {
         }
       });
     } else {
-      stopTimer();
-      timeIsUp();
+      noMore();
     }
   }
   questionBuilder(); 
 };
-function timeIsUp() {
+function noMore() {
+  clearInterval(intervalID);
   const timeDisplay = document.getElementById('time');
   var gameOver = document.querySelector('#questions');
   gameOver.id = 'gameOver';
   gameOver.className = 'gameOver';
   gameOver.innerHTML = '<span>No More Questions!</span>';
-  var scorePage = document.createElement('button');
-  scorePage.textContent = "Let's Record Your Score"
-  gameOver.appendChild(scorePage);
+  var gameOverButton = document.createElement('button');
+  gameOverButton.textContent = "Let's Record Your Score";
+  gameOverButton.id = 'gameOver-btn';
+  gameOverButton.className = 'gameOver-btn';
+  gameOver.appendChild(gameOverButton);
 }
 function stopTimer() {
   clearInterval(intervalID);
@@ -114,7 +116,7 @@ function stopTimer() {
 };
 function startTimer() {
   const timeDisplay = document.getElementById('time');
-  let timeRemaining = 60;
+  let timeRemaining = 10;
   intervalID = setInterval(function () {
     timeRemaining--;
     timeDisplay.innerText = "Time Remaining: " + timeRemaining + " s";

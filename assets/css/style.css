@@ -98,7 +98,10 @@ button:active {
   padding-bottom: 50px;
   font-size: 5rem;
 }
-.gameOver button {
+.gameOver-btn {
   width: auto;
   padding: auto;
+}
+#hidden-time {
+  font-size: 50px;
 }
