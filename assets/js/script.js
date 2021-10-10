@@ -1,7 +1,12 @@
 const dataBase = [
-  {question: "1-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer: [{text: "A1", value:false}, {text:"B1", value: false}, {text: "C1", value: false}, {text: "D1", value: true}]}, {question: "2-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer: [{text: "A2", value:false}, {text:"B2", value: false}, {text: "C2", value: false}, {text: "D2", value: true}]}, {question: "3-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer: [{text: "A3", value:false}, {text:"B3", value: false}, {text: "C3", value: false}, {text: "D3", value: true}]}, {question: "4-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer: [{text: "A4", value:false}, {text:"B4", value: false}, {text: "C4", value: false}, {text: "D4", value: true}]}, {question: "5-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer: [{text: "A5", value:false}, {text:"B5", value: false}, {text: "C5", value: false}, {text: "D5", value: true}]}, {question: "6-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer: [{text: "A6", value:false}, {text:"B6", value: false}, {text: "C6", value: false}, {text: "D6", value: true}]}];
+  {question: 'Inside which HTML element do we put the JavaScript?', answer: [{text: '<scripting>', value:false}, {text:'<javascript>', value: false}, {text: '<js>', value: false}, {text: '<script>', value: true}]}, {question: 'How do you write "Hello World" in an alert box?', answer: [{text: 'msgBox("Hello World")', value:false}, {text:'msg("Hello World")', value: false}, {text: 'alertBox("Hello World")', value: false}, {text: 'alert("Hello World")', value: true}]}, {question: 'How do you create a function in JavaScript?', answer: [{text: 'myFunction() = function', value:false}, {text:'function myFunction()', value: true}, {text: 'function:myFunction()', value: false}, {text: 'function = myFunction()', value: false}]}, {question: 'How do you call a function named "myFunction"?', answer: [{text: 'myFunction', value:false}, {text:'call function myFunction()', value: false}, {text: 'call myFunction()', value: false}, {text: 'myFunction()', value: true}]}, {question: 'How to write an IF statement in JavaScript?', answer: [{text: 'if i == 5 then', value:false}, {text:'if i = 5', value: false}, {text: 'if i = 5 then', value: false}, {text: 'if (i == 5)', value: true}]}, {question: 'How does a FOR loop start?', answer: [{text: 'for (i = 0; i <= 5)', value:false}, {text:'for (i <= 5; i++)', value: false}, {text: 'for i = 1 to 5', value: false}, {text: 'for (i = 0; i <= 5; i++)', value: true}]}, {question: 'What is the correct way to write a JavaScript array?', answer: [{text: 'var colors = "red", "green", "blue"', value:false}, {text:'var colors = 1 = ("red"), 2 = ("green"), 3 = ("blue")', value: false}, {text: 'var colors = (1:"red", 2:"green", 3:"blue")', value: false}, {text: 'var colors = ["red", "green", "blue"]', value: true}]}, {question: 'How do you round the number 7.25, to the nearest integer?', answer: [{text: 'rnd(7.25)', value:false}, {text:'Math.rnd(7.25)', value: false}, {text: 'round(7.25)', value: false}, {text: 'Math.round(7.25)', value: true}]}, {question: 'How do you find the number with the highest value of x and y?', answer: [{text: 'ceil(x, y)', value:false}, {text:'top(x, y)', value: false}, {text: 'Math.ceil(x, y)', value: false}, {text: 'Math.max(x, y)', value: true}]}, {question: 'What is the correct JavaScript syntax to change the content of the HTML element "<p id="demo">This is a demonstration.</p>"?', answer: [{text: 'document.getElementByName("p").innerHTML = "Hello World!";', value:false}, {text:'#demo.innerHTML = "Hello World!";', value: false}, {text: 'document.getElement("p").innerHTML = "Hello World!";', value: false}, {text: 'document.getElementById("demo").innerHTML = "Hello World!";', value: true}]}];
 var start = document.getElementById('start');
 var questions = document.getElementById('questions');
+var highTime = document.getElementById('high-time');
+var hiddenTimeTracker = document.createElement('div');
+hiddenTimeTracker.id = 'hidden';
+hiddenTimeTracker.className = 'hidden';
+highTime.appendChild(hiddenTimeTracker);
 var quiz = function() {
   var i = 0;
   function questionBuilder() {
@@ -107,6 +112,7 @@ function noMore() {
   gameOverButton.id = 'gameOver-btn';
   gameOverButton.className = 'gameOver-btn';
   gameOver.appendChild(gameOverButton);
+  console.log(hiddenTimeTracker);
 }
 function stopTimer() {
   clearInterval(intervalID);
@@ -116,9 +122,10 @@ function stopTimer() {
 };
 function startTimer() {
   const timeDisplay = document.getElementById('time');
-  let timeRemaining = 10;
+  let timeRemaining = 60;
   intervalID = setInterval(function () {
     timeRemaining--;
+    hiddenTimeTracker.textContent = timeRemaining;
     timeDisplay.innerText = "Time Remaining: " + timeRemaining + " s";
     if (timeRemaining <= 0) {
       stopTimer();
