@@ -1,42 +1,99 @@
 const dataBase = [
-  {question: "1-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer1: "B1", answer2: "C1", answer3: "D1", answer4: "E1"},
-  {question: "2-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer1: "B2", answer2: "C2", answer3: "D2", answer4: "E2"},
-  {question: "3-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer1: "B3", answer2: "C3", answer3: "D3", answer4: "E3"},
-  {question: "4-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer1: "B4", answer2: "C4", answer3: "D4", answer4: "E4"},
-  {question: "5-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer1: "B5", answer2: "C5", answer3: "D5", answer4: "E5"},
-  {question: "6-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer1: "B6", answer2: "C6", answer3: "D6", answer4: "E6"}];
+  {question: "1-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer: [{text: "A1", value:false}, {text:"B1", value: false}, {text: "C1", value: false}, {text: "D1", value: true}]}, {question: "2-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer: [{text: "A2", value:false}, {text:"B2", value: false}, {text: "C2", value: false}, {text: "D2", value: true}]}, {question: "3-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer: [{text: "A3", value:false}, {text:"B3", value: false}, {text: "C3", value: false}, {text: "D3", value: true}]}, {question: "4-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer: [{text: "A4", value:false}, {text:"B4", value: false}, {text: "C4", value: false}, {text: "D4", value: true}]}, {question: "5-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer: [{text: "A5", value:false}, {text:"B5", value: false}, {text: "C5", value: false}, {text: "D5", value: true}]}, {question: "6-Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, cumque, eius recusandae harum rem repudiandae quis fuga neque, eum autem explicabo illum. Accusantium voluptatem natus id architecto veniam dolor minima.", answer: [{text: "A6", value:false}, {text:"B6", value: false}, {text: "C6", value: false}, {text: "D6", value: true}]}];
 var start = document.getElementById('start');
 var questions = document.getElementById('questions');
 var quiz = function() {
-  for (var i = 0; i < dataBase.length; i++) {
-    var newDivEl = document.createElement('div');
-    newDivEl.id = ('question');
-    newDivEl.className = ('questions');
-    questions.appendChild(newDivEl);
-    var questionEl = document.createElement('p');
-    questionEl.textContent = (dataBase[i].question);
-    newDivEl.appendChild(questionEl);
-    var answer1El = document.createElement('button');
-    answer1El.textContent = (dataBase[i].answer1);
-    answer1El.id = ('answer1');
-    answer1El.className = 'answers';
-    newDivEl.appendChild(answer1El);
-    var answer2El = document.createElement('button');
-    answer2El.textContent = (dataBase[i].answer2);
-    answer2El.id = ('answer2');
-    answer2El.className = 'answers';
-    newDivEl.appendChild(answer2El);
-    var answer3El = document.createElement('button');
-    answer3El.textContent = (dataBase[i].answer3);
-    answer3El.id = ('answer3');
-    answer3El.className = 'answers';
-    newDivEl.appendChild(answer3El);
-    var answer4El = document.createElement('button');
-    answer4El.textContent = (dataBase[i].answer4);
-    answer4El.id = ('answer4');
-    answer4El.className = 'answers';
-    newDivEl.appendChild(answer4El);
+  var i = 0;
+  function questionBuilder() {
+    if (i < dataBase.length) {
+      var newDivEl = document.createElement('div');
+      newDivEl.id = ('question');
+      newDivEl.className = ('questions');
+      questions.appendChild(newDivEl);
+      var questionEl = document.createElement('p');
+      questionEl.textContent = (dataBase[i].question);
+      newDivEl.appendChild(questionEl);
+      var answer1El = document.createElement('button');
+      answer1El.textContent = (dataBase[i].answer[0].text);
+      answer1El.id = ('answer1');
+      answer1El.className = 'answers';
+      newDivEl.appendChild(answer1El);
+      var value1 = (dataBase[i].answer[0].value);
+      answer1El.addEventListener('click', function() {
+        if (value1) {
+          console.log("TRUE");
+          i++;
+          newDivEl.style.display = "none";
+          questionBuilder();
+        } else if (!value1) {
+          console.log("FALSE");
+          i++;
+          newDivEl.style.display = "none";
+          questionBuilder();
+        }
+      });
+      var answer2El = document.createElement('button');
+      answer2El.textContent = (dataBase[i].answer[1].text);
+      answer2El.id = ('answer2');
+      answer2El.className = 'answers';
+      newDivEl.appendChild(answer2El);
+      var value2 = (dataBase[i].answer[1].value);
+      answer2El.addEventListener('click', function() {
+        if (value2) {
+          console.log("TRUE");
+          i++;
+          newDivEl.style.display = "none";
+          questionBuilder();
+        } else if (!value2) {
+          console.log("FALSE");
+          i++;
+          newDivEl.style.display = "none";
+          questionBuilder();
+        }
+      });
+      var answer3El = document.createElement('button');
+      answer3El.textContent = (dataBase[i].answer[2].text);
+      answer3El.id = ('answer3');
+      answer3El.className = 'answers';
+      newDivEl.appendChild(answer3El);
+      var value3 = (dataBase[i].answer[2].value);
+      answer3El.addEventListener('click', function() {
+        if (value3) {
+          console.log("TRUE");
+          i++;
+          newDivEl.style.display = "none";
+          questionBuilder();
+        } else if (!value3) {
+          console.log("FALSE");
+          i++;
+          newDivEl.style.display = "none";
+          questionBuilder();
+        }
+      });
+      var answer4El = document.createElement('button');
+      answer4El.textContent = (dataBase[i].answer[3].text);
+      answer4El.id = ('answer4');
+      answer4El.className = 'answers';
+      newDivEl.appendChild(answer4El);
+      var value4 = (dataBase[i].answer[3].value);
+      answer4El.addEventListener('click', function() {
+        if (value4) {
+          console.log("TRUE");
+          i++;
+          newDivEl.style.display = "none";
+          questionBuilder();
+        } else if (!value4) {
+          console.log("FALSE");
+          i++;
+          newDivEl.style.display = "none";
+          questionBuilder();
+        }
+      });
+    } else {
+      window.alert("No More Question!");
+    }
   }
+  questionBuilder(); 
 };
 function stopTimer() {
   clearInterval(intervalID);
