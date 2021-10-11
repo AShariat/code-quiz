@@ -2,10 +2,10 @@ const dataBase = [
   {question: 'Inside which HTML element do we put the JavaScript?', answer: [{text: '<script>', value: true}, {text: '<scripting>', value:false}, {text:'<javascript>', value: false}, {text: '<js>', value: false}]}, {question: 'How do you write "Hello World" in an alert box?', answer: [{text: 'msgBox("Hello World")', value:false}, {text:'msg("Hello World")', value: false}, {text: 'alertBox("Hello World")', value: false}, {text: 'alert("Hello World")', value: true}]}, {question: 'How do you create a function in JavaScript?', answer: [{text: 'myFunction() = function', value:false}, {text:'function myFunction()', value: true}, {text: 'function:myFunction()', value: false}, {text: 'function = myFunction()', value: false}]}, {question: 'How do you call a function named "myFunction"?', answer: [{text: 'myFunction', value:false}, {text:'call function myFunction()', value: false}, {text: 'call myFunction()', value: false}, {text: 'myFunction()', value: true}]}, {question: 'How to write an IF statement in JavaScript?', answer: [{text: 'if i == 5 then', value:false}, {text:'if i = 5', value: false}, {text: 'if i = 5 then', value: false}, {text: 'if (i == 5)', value: true}]}, {question: 'How does a FOR loop start?', answer: [{text: 'for (i = 0; i <= 5)', value:false}, {text:'for (i <= 5; i++)', value: false}, {text: 'for i = 1 to 5', value: false}, {text: 'for (i = 0; i <= 5; i++)', value: true}]}, {question: 'What is the correct way to write a JavaScript array?', answer: [{text: 'var colors = "red", "green", "blue"', value:false}, {text:'var colors = 1 = ("red"), 2 = ("green"), 3 = ("blue")', value: false}, {text: 'var colors = (1:"red", 2:"green", 3:"blue")', value: false}, {text: 'var colors = ["red", "green", "blue"]', value: true}]}, {question: 'How do you round the number 7.25, to the nearest integer?', answer: [{text: 'rnd(7.25)', value:false}, {text:'Math.rnd(7.25)', value: false}, {text: 'round(7.25)', value: false}, {text: 'Math.round(7.25)', value: true}]}, {question: 'How do you find the number with the highest value of x and y?', answer: [{text: 'ceil(x, y)', value:false}, {text:'top(x, y)', value: false}, {text: 'Math.ceil(x, y)', value: false}, {text: 'Math.max(x, y)', value: true}]}, {question: 'What is the correct JavaScript syntax to change the content of the HTML element "<p id="demo">This is a demonstration.</p>"?', answer: [{text: 'document.getElementByName("p").innerHTML = "Hello World!";', value:false}, {text:'#demo.innerHTML = "Hello World!";', value: false}, {text: 'document.getElement("p").innerHTML = "Hello World!";', value: false}, {text: 'document.getElementById("demo").innerHTML = "Hello World!";', value: true}]}];
 var start = document.getElementById('start');
 var questions = document.getElementById('questions');
-var timeRemaining = 80;
 var highTime = document.getElementById('high-time');
 var hiddenTimeTracker = document.createElement('div');
 var feedback = document.getElementById('showfeedback');
+var timeRemaining = 80;
 var answer;
 var correctOrWrong;
 hiddenTimeTracker.id = 'hidden';
@@ -15,7 +15,6 @@ var quiz = function() {
   var i = 0;
   function buildFeedback() {
     feedback.textContent = null;
-    console.log(answer);
     i++;
     if (answer) {
       correctOrWrong = "Correct!";
@@ -118,17 +117,22 @@ var quiz = function() {
 };
 function noMore() {
   clearInterval(intervalID);
-  const timeDisplay = document.getElementById('time');
+  var timeDisplay = document.getElementById('time');
   var gameOver = document.querySelector('#questions');
   gameOver.id = 'gameOver';
   gameOver.className = 'gameOver';
-  gameOver.innerHTML = '<span>No More Questions!</span>';
+  gameOver.textContent = "No More Questions!";
+  var scoreDisplay = document.createElement('span');
+  scoreDisplay.textContent = "Your final score is: " + hiddenTimeTracker.textContent;
+  scoreDisplay.className = 'score-display';
+  gameOver.appendChild(scoreDisplay);
   var gameOverButton = document.createElement('button');
   gameOverButton.textContent = "Let's Record Your Score";
   gameOverButton.id = 'gameOver-btn';
   gameOverButton.className = 'gameOver-btn';
   gameOver.appendChild(gameOverButton);
-  console.log(hiddenTimeTracker);
+  var score = document.createElement('input');
+  gameOver.appendChild(score);
 }
 function stopTimer() {
   clearInterval(intervalID);
@@ -136,10 +140,16 @@ function stopTimer() {
   gameOver.className = 'gameOver';
   gameOver.innerHTML = '<span>Time is up!</span>';
   feedback.textContent = null;
+  var startOver = document.createElement('button');
+  startOver.textContent = "Start Over";
+  startOver.className = 'startOver-btn'
+  gameOver.appendChild(startOver);
+  startOver.addEventListener('click', function() {
+    window.location.reload();
+  })
 };
 function startTimer() {
   const timeDisplay = document.getElementById('time');
-  // let timeRemaining = 60;
   intervalID = setInterval(function () {
     timeRemaining--;
     timeRemaining = Math.max(0, timeRemaining);
