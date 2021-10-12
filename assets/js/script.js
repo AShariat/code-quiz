@@ -5,25 +5,50 @@ var questions = document.getElementById('questions');
 var highTime = document.getElementById('high-time');
 var high = document.getElementById('high');
 var hiddenTimeTracker = document.createElement('div');
+var list = document.getElementById('list');
+var lastPage = document.getElementById('scores');
 hiddenTimeTracker.id = 'hidden';
 hiddenTimeTracker.className = 'hidden';
 highTime.appendChild(hiddenTimeTracker);
 var feedback = document.getElementById('showfeedback');
 var timeRemaining = 80;
+var i = 0;
 var answer;
 var correctOrWrong;
 function highScores() {
+  highTime.style.display = 'none';
   var scores = [];
   for (var x = 0; x < localStorage.length; x++) {
     var key = localStorage.key(x);
     var value = localStorage.getItem(key);
     scores[x] = {name: key, score: value};
+    var listScores = document.createElement('li');
+    listScores.textContent = key + " : " + value;
+    list.appendChild(listScores);
   }
-  gameOver.style.display = 'none';
-  feedback.style.display = 'none';
+  if (i > 0) {
+    gameOver.style.display = 'none';
+    feedback.style.display = 'none';
+  } else if (i === 0) {
+    start.style.display = 'none';
+  }
+  var StartOver = document.createElement('button');
+  StartOver.textContent = "Start Over";
+  StartOver.className = 'gameOver-btn';
+  lastPage.appendChild(StartOver);
+  StartOver.addEventListener('click', function() {
+    window.location.reload();
+  });
+  var clear = document.createElement('button');
+  clear.textContent = "Clear Scores";
+  clear.className = 'gameOver-btn';
+  lastPage.appendChild(clear);
+  clear.addEventListener('click', function() {
+    localStorage.clear();
+    list.innerHTML = "Scores Are Cleared!"
+  });
 };
 var quiz = function() {
-  var i = 0;
   function buildFeedback() {
     feedback.textContent = null;
     i++;
@@ -31,6 +56,7 @@ var quiz = function() {
       correctOrWrong = "Correct!";
     } else {
       correctOrWrong = "Wrong!";
+      timeRemaining = (timeRemaining - 10);
     };
     var showFeedback = document.createElement('span');
     showFeedback.textContent = correctOrWrong;
@@ -58,9 +84,9 @@ var quiz = function() {
           newDivEl.style.display = "none";
           buildFeedback();
         } else if (!value1) {
+          // timeRemaining = (timeRemaining - 10);
           answer = false;
           newDivEl.style.display = "none";
-          timeRemaining = (timeRemaining - 10);
           buildFeedback();
         }
       });
@@ -76,9 +102,9 @@ var quiz = function() {
           newDivEl.style.display = "none";
           buildFeedback();
         } else if (!value2) {
+          // timeRemaining = (timeRemaining - 10);
           answer = false;
           newDivEl.style.display = "none";
-          timeRemaining = (timeRemaining - 10);
           buildFeedback();
         }
       });
@@ -94,9 +120,9 @@ var quiz = function() {
           newDivEl.style.display = "none";
           buildFeedback();
         } else if (!value3) {
+          // timeRemaining = (timeRemaining - 10);
           answer = false;
           newDivEl.style.display = "none";
-          timeRemaining = (timeRemaining - 10);
           buildFeedback();
         }
       });
@@ -112,9 +138,9 @@ var quiz = function() {
           newDivEl.style.display = "none";
           buildFeedback();
         } else if (!value4) {
+          // timeRemaining = (timeRemaining - 10);
           answer = false;
           newDivEl.style.display = "none";
-          timeRemaining = (timeRemaining - 10);
           buildFeedback();
         }
       });

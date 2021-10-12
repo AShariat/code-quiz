@@ -132,3 +132,13 @@ button:active {
   justify-content: center;
   align-items: center;
 }
+#list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: blue;
+  font-size: 1.5rem;
+  list-style: none;
+  margin-top: 40px;
+}
