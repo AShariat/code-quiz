@@ -3,14 +3,25 @@ const dataBase = [
 var start = document.getElementById('start');
 var questions = document.getElementById('questions');
 var highTime = document.getElementById('high-time');
+var high = document.getElementById('high');
 var hiddenTimeTracker = document.createElement('div');
+hiddenTimeTracker.id = 'hidden';
+hiddenTimeTracker.className = 'hidden';
+highTime.appendChild(hiddenTimeTracker);
 var feedback = document.getElementById('showfeedback');
 var timeRemaining = 80;
 var answer;
 var correctOrWrong;
-hiddenTimeTracker.id = 'hidden';
-hiddenTimeTracker.className = 'hidden';
-highTime.appendChild(hiddenTimeTracker);
+function highScores() {
+  var scores = [];
+  for (var x = 0; x < localStorage.length; x++) {
+    var key = localStorage.key(x);
+    var value = localStorage.getItem(key);
+    scores[x] = {name: key, score: value};
+  }
+  gameOver.style.display = 'none';
+  feedback.style.display = 'none';
+};
 var quiz = function() {
   var i = 0;
   function buildFeedback() {
@@ -126,14 +137,37 @@ function noMore() {
   scoreDisplay.textContent = "Your final score is: " + hiddenTimeTracker.textContent;
   scoreDisplay.className = 'score-display';
   gameOver.appendChild(scoreDisplay);
+  var scoreEl = document.createElement('div');
+  scoreEl.id = 'score';
+  gameOver.appendChild(scoreEl);
+  var initialEl = document.createElement('input');
+  initialEl.id = 'initial';
+  scoreEl.appendChild(initialEl);
   var gameOverButton = document.createElement('button');
-  gameOverButton.textContent = "Let's Record Your Score";
+  gameOverButton.textContent = "Save Score";
   gameOverButton.id = 'gameOver-btn';
   gameOverButton.className = 'gameOver-btn';
-  gameOver.appendChild(gameOverButton);
-  var score = document.createElement('input');
-  gameOver.appendChild(score);
-}
+  scoreEl.appendChild(gameOverButton);
+  gameOverButton.addEventListener('click', function() {
+    localStorage.setItem(initialEl.value, hiddenTimeTracker.textContent);
+    scoreEl.innerHTML = "Saved!";
+    var highDisplay = document.createElement('button');
+    highDisplay.textContent = "View High Scores";
+    highDisplay.className = 'gameOver-btn';
+    gameOver.appendChild(highDisplay);
+    highDisplay.addEventListener('click', function() {
+      highScores();
+    });
+  });
+  var gameOverStartOver = document.createElement('button');
+  gameOverStartOver.textContent = "Start Over";
+  gameOverStartOver.id = 'gameOver-sobtn';
+  gameOverStartOver.className = 'gameOver-btn';
+  gameOver.appendChild(gameOverStartOver);
+  gameOverStartOver.addEventListener('click', function() {
+    window.location.reload();
+  });
+};
 function stopTimer() {
   clearInterval(intervalID);
   var gameOver = document.querySelector('#questions');
@@ -146,7 +180,7 @@ function stopTimer() {
   gameOver.appendChild(startOver);
   startOver.addEventListener('click', function() {
     window.location.reload();
-  })
+  });
 };
 function startTimer() {
   const timeDisplay = document.getElementById('time');
@@ -159,7 +193,8 @@ function startTimer() {
       stopTimer();
     }
   }, 1000);
-}
+};
+var highClick = high.addEventListener('click', highScores);
 var startBtn = document.querySelector('#start-btn');
 startBtn.addEventListener('click', function(){
   start.style.display = "none";
