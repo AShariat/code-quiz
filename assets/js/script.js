@@ -145,6 +145,8 @@ var quiz = function() {
           buildFeedback();
         }
       });
+    } else if (timeRemaining === 0) {
+      stopTimer();
     } else {
       noMore();
     }
@@ -166,6 +168,7 @@ function noMore() {
   gameOver.appendChild(scoreEl);
   var initialEl = document.createElement('input');
   initialEl.id = 'initial';
+  initialEl.placeholder = "Your Name Here!";
   scoreEl.appendChild(initialEl);
   var gameOverButton = document.createElement('button');
   gameOverButton.textContent = "Save Score";
